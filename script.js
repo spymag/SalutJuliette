@@ -17,12 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateRainbow() {
         const containerWidth = screenSaverContainer.offsetWidth;
         const containerHeight = screenSaverContainer.offsetHeight;
-        const rainbowWidth = rainbow.offsetWidth; // This is the fixed width (e.g., 300px)
         const rainbowHeight = rainbow.offsetHeight;
 
         rainbowX += rainbowSpeedX;
         rainbowY += rainbowSpeedY;
-
         // Bounce off horizontal edges for fixed-width element
         if (rainbowX + rainbowWidth > containerWidth || rainbowX < 0) {
             rainbowSpeedX *= -1; // Reverse horizontal direction
