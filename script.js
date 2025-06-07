@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const screenSaverContainer = document.getElementById('screenSaverContainer');
-    const rainbow = document.getElementById('rainbowContainer');
+    const rainbow = document.getElementById('rainbow');
     const unicorn = document.getElementById('unicorn');
 
     // Rainbow animation
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  unicorn.style.display = 'none';
             }, 300); // matches CSS transition time
             unicornTimeout = null; // Reset timeout id
-        }, 3000); // Show for 3 seconds
+        }, 2000); // Show for 2 seconds
     });
 
     // Start rainbow animation
