@@ -17,10 +17,9 @@ body, html {
     overflow: hidden; /* Crucial for bouncing effect */
 }
 
-/*
 #rainbow {
-    width: 200%; / Wider than screen to give appearance of continuous band /
-    height: 100px; / Height of the rainbow /
+    width: 200%; /* Wider than screen to give appearance of continuous band */
+    height: 100px; /* Height of the rainbow */
     background: linear-gradient(to bottom,
         red 0%, red 16.67%,
         orange 16.67%, orange 33.33%,
@@ -30,48 +29,9 @@ body, html {
         indigo 83.33%, indigo 100%);
     position: absolute;
     top: 50px;
-    left: -100%; / Start off-screen to one side, will be animated by JS /
-    / transform: rotate(-10deg); Let's hold off on rotation for now, can add later if needed /
+    left: -100%; /* Start off-screen to one side, will be animated by JS */
+    /* transform: rotate(-10deg); Let's hold off on rotation for now, can add later if needed */
 }
-*/
-
-#rainbowContainer {
-    width: 300px; /* Fixed width for the arc itself */
-    height: 150px; /* Height of the arc */
-    position: absolute;
-    top: 50px;
-    left: 50px; /* Initial position, JS will animate this */
-    border-top-left-radius: 150px; /* Half of width for a semicircle top */
-    border-top-right-radius: 150px; /* Half of width for a semicircle top */
-    overflow: hidden; /* This is key to making the stripes form an arc */
-    /* The existing JS expects a wide element to bounce.
-       This fixed-width arc will change that.
-       We'll need to adjust the JS logic for bouncing a fixed-width element.
-       For now, let's set its width to something manageable.
-       The JS will use offsetWidth of this container.
-    */
-}
-
-.rainbow-stripe {
-    width: 100%; /* Stripes fill the container's width */
-    height: 25px; /* Height of each color band (150px / 6 stripes) */
-    /* No margin or padding needed if they are stacked */
-}
-
-#stripe-red { background-color: red; }
-#stripe-orange { background-color: orange; }
-#stripe-yellow { background-color: yellow; }
-#stripe-green { background-color: green; }
-#stripe-blue { background-color: blue; }
-#stripe-indigo { background-color: indigo; }
-/* Consider 8-bit palette colors if available:
-#stripe-red { background-color: #FF0000; }
-#stripe-orange { background-color: #FFA500; }
-#stripe-yellow { background-color: #FFFF00; }
-#stripe-green { background-color: #00FF00; }
-#stripe-blue { background-color: #0000FF; }
-#stripe-indigo { background-color: #4B0082; }
-*/
 
 #staticText {
     position: absolute;
