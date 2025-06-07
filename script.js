@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     rainbow.style.top = rainbowY + 'px';
 
     function animateRainbow() {
+        const rainbowWidth = rainbow.offsetWidth;
+        const rainbowHeight = rainbow.offsetHeight;
         const containerWidth = screenSaverContainer.offsetWidth;
         const containerHeight = screenSaverContainer.offsetHeight;
-        const rainbowHeight = rainbow.offsetHeight;
 
         rainbowX += rainbowSpeedX;
         rainbowY += rainbowSpeedY;
@@ -84,6 +85,42 @@ document.addEventListener('DOMContentLoaded', () => {
             // and pointer-events: none in CSS to prevent interaction
             // To ensure it can be reshown, we might need to set display:none after transition
             setTimeout(() => { // give time for fade out animation
+                 unicorn.style.display = 'none';
+            }, 300); // matches CSS transition time
+            unicornTimeout = null; // Reset timeout id
+        }, 2000); // Show for 2 seconds
+    });
+
+    screenSaverContainer.addEventListener('touchstart', (event) => {
+        // Optional: Prevent default touch behavior like scrolling
+        // event.preventDefault();
+
+        // Clear any existing timeout to prevent multiple unicorns
+        if (unicornTimeout) {
+            clearTimeout(unicornTimeout);
+            unicorn.classList.remove('show');
+            // Force reflow to restart animation if it was in progress
+            void unicorn.offsetWidth;
+        }
+
+        // Get touch coordinates (use the first touch point)
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+
+        unicorn.style.left = (touchX - unicorn.width / 2) + 'px';
+        unicorn.style.top = (touchY - unicorn.height / 2) + 'px';
+
+        unicorn.src = "unicorn.png"; // Ensure src is set
+
+        // Show unicorn with slide-in animation
+        unicorn.classList.add('show');
+        unicorn.style.display = 'block'; // Make it block before animation starts
+
+        // Set timeout to hide unicorn with slide-out animation
+        unicornTimeout = setTimeout(() => {
+            unicorn.classList.remove('show');
+            // Set display:none after transition
+            setTimeout(() => {
                  unicorn.style.display = 'none';
             }, 300); // matches CSS transition time
             unicornTimeout = null; // Reset timeout id
