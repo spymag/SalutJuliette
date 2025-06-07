@@ -1,46 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
     const screenSaverContainer = document.getElementById('screenSaverContainer');
-    const rainbow = document.getElementById('rainbow');
+    const rainbow = document.getElementById('rainbowContainer');
     const unicorn = document.getElementById('unicorn');
 
     // Rainbow animation
-    let rainbowX = -rainbow.offsetWidth / 2; // Start with half of it off-screen to the left
-    let rainbowY = 50; // Initial Y position, matches CSS
+    // Initial position of the rainbow (matches CSS)
+    let rainbowX = 50;
+    let rainbowY = 50;
     let rainbowSpeedX = 1; // Pixels per frame
     let rainbowSpeedY = 0.5; // Slower vertical movement
 
-    // Adjust rainbow initial position to be more centered vertically for bouncing
+    // Apply initial CSS position from JS variables to ensure consistency
     rainbow.style.left = rainbowX + 'px';
     rainbow.style.top = rainbowY + 'px';
 
     function animateRainbow() {
         const containerWidth = screenSaverContainer.offsetWidth;
         const containerHeight = screenSaverContainer.offsetHeight;
-        const rainbowWidth = rainbow.offsetWidth;
         const rainbowHeight = rainbow.offsetHeight;
 
         rainbowX += rainbowSpeedX;
         rainbowY += rainbowSpeedY;
+        // Bounce off horizontal edges for fixed-width element
+        if (rainbowX + rainbowWidth > containerWidth || rainbowX < 0) {
+            rainbowSpeedX *= -1; // Reverse horizontal direction
 
-        // Bounce off horizontal edges
-        // We use rainbowWidth / 4 because the rainbow is 200% width of container.
-        // So, left edge is when rainbowX > 0 (meaning the actual left edge of the visible part of rainbow hits container left)
-        // And right edge is when rainbowX < containerWidth - rainbowWidth / 2 (meaning right edge of visible part hits container right)
-        // A simpler way for a 200% width rainbow is to check its 'left' style property
-        if (rainbowX > 0 || rainbowX < containerWidth - rainbowWidth ) {
-             rainbowSpeedX *= -1;
-             // Ensure it doesn't get stuck
-             if (rainbowX > 0) rainbowX = 0;
-             if (rainbowX < containerWidth - rainbowWidth) rainbowX = containerWidth - rainbowWidth;
+            // Prevent sticking by ensuring it's within bounds after bounce
+            if (rainbowX < 0) {
+                rainbowX = 0;
+            } else if (rainbowX + rainbowWidth > containerWidth) {
+                rainbowX = containerWidth - rainbowWidth;
+            }
         }
-
 
         // Bounce off vertical edges
         if (rainbowY + rainbowHeight > containerHeight || rainbowY < 0) {
-            rainbowSpeedY *= -1;
-            // Ensure it doesn't get stuck
-            if (rainbowY < 0) rainbowY = 0;
-            if (rainbowY + rainbowHeight > containerHeight) rainbowY = containerHeight - rainbowHeight;
+            rainbowSpeedY *= -1; // Reverse vertical direction
+
+            // Prevent sticking
+            if (rainbowY < 0) {
+                rainbowY = 0;
+            } else if (rainbowY + rainbowHeight > containerHeight) {
+                rainbowY = containerHeight - rainbowHeight;
+            }
         }
 
         rainbow.style.left = rainbowX + 'px';
@@ -81,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // For simplicity, we'll rely on opacity making it invisible
             // and pointer-events: none in CSS to prevent interaction
             // To ensure it can be reshown, we might need to set display:none after transition
-            setTimeout(()_ => { // give time for fade out animation
+            setTimeout(() => { // give time for fade out animation
                  unicorn.style.display = 'none';
             }, 300); // matches CSS transition time
             unicornTimeout = null; // Reset timeout id
