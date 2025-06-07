@@ -1,0 +1,74 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #000; /* Black background for the page */
+    color: #FFF; /* White text color by default */
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+#screenSaverContainer {
+    width: 100%;
+    height: 100%;
+    position: relative; /* For positioning children */
+    background-color: #0a0a23; /* Dark blue/purple, 8-bit space feel */
+    overflow: hidden; /* Crucial for bouncing effect */
+}
+
+#rainbow {
+    width: 200%; /* Wider than screen to give appearance of continuous band */
+    height: 100px; /* Height of the rainbow */
+    background: linear-gradient(to bottom,
+        red 0%, red 16.67%,
+        orange 16.67%, orange 33.33%,
+        yellow 33.33%, yellow 50%,
+        green 50%, green 66.67%,
+        blue 66.67%, blue 83.33%,
+        indigo 83.33%, indigo 100%);
+    position: absolute;
+    top: 50px;
+    left: -100%; /* Start off-screen to one side, will be animated by JS */
+    /* transform: rotate(-10deg); Let's hold off on rotation for now, can add later if needed */
+}
+
+#staticText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em; /* Responsive enough for a screensaver */
+    color: #FF00FF; /* Bright Magenta */
+    text-shadow:
+        0 0 5px #FFF, /* White glow */
+        0 0 10px #FFF,
+        0 0 15px #FF00FF, /* Magenta glow */
+        0 0 20px #FF00FF,
+        0 0 25px #FF00FF;
+    text-align: center;
+    white-space: nowrap; /* Keep "Salut Juliette" on one line */
+}
+
+#unicorn {
+    width: 50px; /* Adjust as needed based on the actual unicorn image */
+    height: 50px; /* Adjust as needed */
+    position: absolute; /* For placing at click coordinates */
+    /* Initially hidden, JS will manage display and animations */
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg); /* Start small and not rotated */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: none; /* So it doesn't interfere with other clicks */
+}
+
+/* CSS class to trigger unicorn visibility and animation */
+#unicorn.show {
+    opacity: 1;
+    transform: scale(1) rotate(-15deg); /* Grow and slightly rotate */
+}
+
+/* CSS class for slide-out (can be same as initial if reversing transition) */
+#unicorn.hide-animation {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+}
